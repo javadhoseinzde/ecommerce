@@ -1,0 +1,26 @@
+version : "3.7"
+
+services:
+  app:
+    build: './app'
+    container_name: 'app'
+    restart: 'always'
+    expose:
+      - '8000'
+    volumes:
+      - type: 'bind'
+        source: './volumes/mysite'
+        target: '/mysite'
+
+
+  nginx:
+    build: './nginx'
+    container_name: 'nginx'
+    restart: 'always'
+    volumes:
+      - type: 'bind'
+        source: './volumes/media'
+        target: '/mysite/media'
+
+      - type: 'bind'
+        source: './volumes/static'
