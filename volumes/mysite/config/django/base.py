@@ -20,6 +20,8 @@ ALLOWED_HOSTS = []
 LOCAL_APPS = [
     'app.common.apps.CommonConfig',
     'app.shop.apps.ShopConfig',
+    'app.users.apps.UsersConfig',
+
 
 ]
 
@@ -125,3 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 from config.settings.sessions import *  # noqa
 from config.settings.celery import *  # noqa
+from config.settings.kavenegar import *  # noqa
+
+AUTH_USER_MODEL = 'users.MyUser'
