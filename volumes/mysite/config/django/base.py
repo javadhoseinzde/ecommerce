@@ -21,6 +21,8 @@ LOCAL_APPS = [
     'app.common.apps.CommonConfig',
     'app.shop.apps.ShopConfig',
     'app.users.apps.UsersConfig',
+    'app.category.apps.CategoryConfig',
+    
 
 
 ]

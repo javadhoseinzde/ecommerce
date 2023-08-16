@@ -1,6 +1,9 @@
 from django.db import models
 from app.common.models import BaseModel
+from app.category.models import Category
 # Create your models here.
+
+
 class Product(BaseModel):
     STATUS = (
         ('True', 'True'),
@@ -14,7 +17,7 @@ class Product(BaseModel):
         ('Size-Color', 'Size-Color'),
 
     )
-    # category = models.ManyToManyField(Category, related_name="articles", verbose_name="دسته بندی") 
+    category = models.ManyToManyField(Category, related_name="articles", verbose_name="دسته بندی") 
     title = models.CharField(max_length=150, verbose_name="اسم")
     slug = models.SlugField(null=False, unique=True, verbose_name="آدرس")
     description = models.TextField(max_length=255, verbose_name="توضیحات")
