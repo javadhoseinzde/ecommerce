@@ -22,8 +22,7 @@ LOCAL_APPS = [
     'app.shop.apps.ShopConfig',
     'app.users.apps.UsersConfig',
     'app.category.apps.CategoryConfig',
-    
-
+    'app.comments.apps.CommentsConfig',
 
 ]
 

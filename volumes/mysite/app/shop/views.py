@@ -1,7 +1,8 @@
 from typing import Any, Optional
 from django.db import models
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import Product
+from app.comments.models import Comments
 from django.views.generic import ListView, DetailView
 # Create your views here.
 
@@ -12,13 +13,16 @@ def filter_product():
 def get_product(pk):
     return get_object_or_404(Product, pk=pk, status="True")
 
+def get_comment(pk):
+    return get_list_or_404(Comments, status=True, product_id=pk)
+
 
 class IndexView(ListView):
     template_name = "shop/index.html"
 
     def get_queryset(self):
         queryset = {
-            "query": filter_product()
+            "query": filter_product(),
         }
         return queryset
 
@@ -29,4 +33,8 @@ class ProductDetail(DetailView):
 
     def get_object(self):
         pk = self.kwargs.get("pk")
-        return get_product(pk)
+        queryset = {
+            "detail": get_product(pk),
+            "comment": get_comment(pk),
+        }
+        return queryset
