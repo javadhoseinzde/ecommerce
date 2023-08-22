@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import Product
 from app.comments.models import Comments
 from django.views.generic import ListView, DetailView
-# Create your views here.
 
 
 def filter_product():
@@ -38,3 +37,4 @@ class ProductDetail(DetailView):
             "comment": get_comment(pk),
         }
         return queryset
+    

@@ -5,9 +5,7 @@ from .models import Comments
 from app.shop.models import Product
 from django.contrib import messages
 def add_comment(content, product_id, user):
-	print(product_id)
-	print(user)
-	print(content)
+
 	return Comments.objects.create(content=content, product_id=product_id, user=user)
 
 

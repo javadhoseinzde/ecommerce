@@ -23,5 +23,16 @@
   {{i.content}}<br>
   {{i.user}}<br>
 {% endfor %}
+
+<h1>Add To Cart</h1>
+
+<form action="{% url 'cart:add' object.detail.id %}" method="post">
+  {% csrf_token %}
+  <label for="contnet">Tedad:</label><br>
+  <input type="number" id="quantity" name="quantity">
+  <button type="submit">submit</button>
+
+
+</form>
 {% endblock %}
 

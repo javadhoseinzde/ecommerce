@@ -35,6 +35,8 @@ class Product(BaseModel):
     def __str__(self) -> str:
         return self.title
 
+
+
     class Meta:
         verbose_name = 'محصول'
         verbose_name_plural = 'محصولات'
