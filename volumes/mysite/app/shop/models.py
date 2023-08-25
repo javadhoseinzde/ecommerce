@@ -4,6 +4,8 @@ from app.category.models import Category
 # Create your models here.
 
 
+
+
 class Product(BaseModel):
     STATUS = (
         ('True', 'True'),
@@ -41,3 +43,35 @@ class Product(BaseModel):
         verbose_name = 'محصول'
         verbose_name_plural = 'محصولات'
 
+
+
+class Color(BaseModel):
+    name = models.CharField(max_length=20)
+    code = models.CharField(max_length=10, blank=True,null=True)
+    def __str__(self):
+        return self.name
+
+
+class Images(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    title = models.CharField(max_length=50,blank=True)
+    image = models.ImageField(blank=True, upload_to='images/')
+
+    def __str__(self):
+        return self.title
+
+
+class Variants(BaseModel):
+    title = models.CharField(max_length=100, blank=True,null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    color = models.ForeignKey(Color, on_delete=models.CASCADE,blank=True,null=True)
+    # size = models.ForeignKey(Size, on_delete=models.CASCADE,blank=True,null=True)
+    image_id = models.IntegerField(blank=True,null=True,default=0)
+    quantity = models.IntegerField(default=1)
+    discount = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=12, decimal_places=2,default=0)
+
+    # order_amount = MoneyField(default="3000",max_digits=9, decimal_places=0, default_currency='IRR')
+
+    def __str__(self):
+        return self.title

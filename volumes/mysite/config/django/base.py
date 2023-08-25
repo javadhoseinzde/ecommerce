@@ -24,6 +24,8 @@ LOCAL_APPS = [
     'app.category.apps.CategoryConfig',
     'app.comments.apps.CommentsConfig',
     'app.cart.apps.CartConfig',
+    'app.order.apps.OrderConfig',
+
 
 
 ]
