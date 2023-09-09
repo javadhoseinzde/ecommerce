@@ -1,1 +1,42 @@
-salam
+{% extends "base.html" %}
+{% block content %}
+{{object.detail.title}}<br>
+{{object.detail.price}}
+
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+<h1>Add To Cart</h1>
+<form action="{% url 'cart:add' object.detail.id %}" method="post">
+  {% csrf_token %}
+  <label for="contnet">Tedad:</label><br>
+  <input type="number" id="quantity" name="quantity">
+  <button type="submit">submit</button>
+
+
+</form>
+
+
+<h1>Add Comment</h1>
+<form action="{% url 'comment:create-comment' object.detail.id %}" method="POST">
+    {% csrf_token %}
+  <label for="contnet">content:</label><br>
+  <input type="text" id="contnet" name="contnet">
+  <button type="submit">submit</button>
+</form>
+
+{% for i in object.comment %}<br>
+  {{i.content}}<br>
+  {{i.user}}<br>
+{% endfor %}
+
+
+
+
+{% endblock %}
+

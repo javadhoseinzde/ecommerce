@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% for i in object_list.query %}<br>
+
+    {{i.product}}<br>
+    {{i.quantity}}<br>
+    <form action="{% url 'cart:delete' i.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">حذف</button>
+    <br>
+
+</form>
+
+<form action="{% url 'cart:update' i.id %}" method="post">
+  {% csrf_token %}
+  <input type="number" id="quantity" name="quantity" value="{{i.quantity}}">
+  <button type="submit">submit</button>
+
+</form>
+{% endfor %}
+
+قیمت کل: {{object_list.total}}<br>
+<a href="">تکمیل خرید</a>
+<!-- تخفیف کل: {{object_list.dis}} -->
+
+
+{% endblock %}
