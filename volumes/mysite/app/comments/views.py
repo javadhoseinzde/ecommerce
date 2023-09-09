@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from .forms import CommnetForm
-from .models import Comments
 from app.shop.models import Product
 from django.contrib import messages
-def add_comment(content, product_id, user):
-
-	return Comments.objects.create(content=content, product_id=product_id, user=user)
+from .query import add_comment
 
 
 
@@ -15,6 +12,7 @@ class AddComment(View):
 	
 	def post(self,request, id):
 		user = self.request.user
+
 		content = self.request.POST.get("contnet")
 
 		query = add_comment(content, id, user)

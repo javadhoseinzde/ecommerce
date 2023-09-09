@@ -4,6 +4,10 @@ from app.category.models import Category
 # Create your models here.
 
 
+class ProductManager(models.Manager):
+	def published(self):
+		return self.filter(status='True')
+
 
 
 class Product(BaseModel):
@@ -36,12 +40,12 @@ class Product(BaseModel):
 
     def __str__(self) -> str:
         return self.title
-
-
-
+    
     class Meta:
         verbose_name = 'محصول'
         verbose_name_plural = 'محصولات'
+
+    objects = ProductManager()
 
 
 

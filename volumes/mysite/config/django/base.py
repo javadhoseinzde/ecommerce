@@ -13,7 +13,21 @@ SECRET_KEY = 'django-insecure-1p6)b)#&x3b3=5k2ai6=f^zs00fpkxp$fcj#m!x3=5yxldp5on
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+
+
+# CSRF_TRUSTED_ORIGINS = [
+#     'localhost',
+#     'http://127.0.0.1:8000'
+# ],
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000'   
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:8000'
+]
+
 
 
 # Application definition
@@ -33,7 +47,8 @@ LOCAL_APPS = [
 
 
 THIRD_PARTY_APPS = [
-
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 INSTALLED_APPS = [
@@ -133,5 +148,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from config.settings.sessions import *  # noqa
 from config.settings.celery import *  # noqa
 from config.settings.kavenegar import *  # noqa
-
+from config.settings.jwt import *  # noqa
 AUTH_USER_MODEL = 'users.MyUser'
+

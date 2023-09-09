@@ -1,20 +1,9 @@
 from typing import Any, Optional
-from django.db import models
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from .models import Product
-from app.comments.models import Comments
+
+
 from django.views.generic import ListView, DetailView
 
-
-def filter_product():
-    return Product.objects.filter(status="True")
-
-def get_product(pk):
-    return get_object_or_404(Product, pk=pk, status="True")
-
-def get_comment(pk):
-    return get_list_or_404(Comments, status=True, product_id=pk)
-
+from .query import filter_product, get_product ,get_comment
 
 class IndexView(ListView):
     template_name = "shop/index.html"

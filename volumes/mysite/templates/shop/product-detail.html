@@ -11,7 +11,18 @@
   {% endfor %}
 </ul>
 {% endif %}
+<h1>Add To Cart</h1>
+<form action="{% url 'cart:add' object.detail.id %}" method="post">
+  {% csrf_token %}
+  <label for="contnet">Tedad:</label><br>
+  <input type="number" id="quantity" name="quantity">
+  <button type="submit">submit</button>
 
+
+</form>
+
+
+<h1>Add Comment</h1>
 <form action="{% url 'comment:create-comment' object.detail.id %}" method="POST">
     {% csrf_token %}
   <label for="contnet">content:</label><br>
@@ -24,15 +35,8 @@
   {{i.user}}<br>
 {% endfor %}
 
-<h1>Add To Cart</h1>
-
-<form action="{% url 'cart:add' object.detail.id %}" method="post">
-  {% csrf_token %}
-  <label for="contnet">Tedad:</label><br>
-  <input type="number" id="quantity" name="quantity">
-  <button type="submit">submit</button>
 
 
-</form>
+
 {% endblock %}
 
