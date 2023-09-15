@@ -32,8 +32,10 @@ urlpatterns = [
     path("cart/", include("app.cart.urls")),
     path("api/", include("app.shop.api.urls")),
     path("api/", include("app.comments.api.urls")),
+    path("api/", include("app.users.api.urls")),
     # path('api-auth/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
 ]
