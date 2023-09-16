@@ -3,7 +3,7 @@
 
 
 {% block content %}
-{% for i in object_list.query %}
+{% for i in object_list.query %}<br>
 <a href="{% url 'shop:detail' i.pk %}">
     {{i.title}}
     </a>

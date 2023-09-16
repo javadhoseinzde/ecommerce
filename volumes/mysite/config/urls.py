@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("app.shop.urls")),
     path("", include("app.comments.urls")),
+    path("user/", include("app.users.urls")),
     path("cart/", include("app.cart.urls")),
     path("api/", include("app.shop.api.urls")),
     path("api/", include("app.comments.api.urls")),

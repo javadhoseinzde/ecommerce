@@ -7,6 +7,8 @@ from .models import MyUser
 from . import forms
 from . import helper
 from django.contrib import messages
+
+
 def register_view(request):
 	form = forms.RegisterForm
 	if request.method == "POST":
@@ -48,12 +50,8 @@ def verify(request):
 
 
 		if request.method == "POST":
-			a = request.POST.get("otp")
-			b = request.POST.get("otp1")
-			c = request.POST.get("otp2")
-			d = request.POST.get("otp3")
-			c = a + b + c +d
-			print(c)
+			otp = request.POST.get("otp")
+			
 			#check otp expiration
 			if not helper.check_otp_expiration(user.mobile):
 				messages.error(request, "OTP is expire pleasee try again")
@@ -61,14 +59,14 @@ def verify(request):
 				return HttpResponseRedirect(reverse('verify'))
 
 
-			if user.otp != int(c):
+			if user.otp != int(otp):
 				messages.error(request, "OTP is incorrect pleasee try again")
 				print("otp is incorrect")
 				return HttpResponseRedirect(reverse('verify'))
 			user.is_active = True
 			user.save()
 			login(request, user)
-			return HttpResponseRedirect(reverse('home'))
+			return HttpResponseRedirect(reverse('shop:index'))
 	except MyUser.DoesNotExist:
 		messages.error(request, "Error accrded try again")
 
