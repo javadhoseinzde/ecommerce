@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+  <br>
+  <br>
+
+
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-center">
+                    سفارش های اخیر
+                </p>
+                <div class="container mt-5">
+                    <div class="row">
+                    {% if object_list.order_item_bool == True %}
+                    {% for product in object_list.order_item %}
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div id="top-card" class="card" >
+                                <img id="top-card-img" src="{{ product.product.image.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="text-muted text-center">قیمت 70000</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        {% endif %}
+                        <p class="text-end">بیشتر</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-center">
+                    نقد و نظرات
+                </p>
+            </div>
+            <div class="row">
+            {% for i in object_list.comment %}
+                
+                <div class="col-lg-4 col-sm-6 mb-3 mb-sm-0">
+                  <div class="card mt-3">
+                    
+                      <!-- <img id="top-card-img" src="img/b.jpg" class="card-img-top" alt="..."> -->
+                      <div class="card-body">
+                          <p class="text-muted text-center">جواد حسین زاده</p>
+                          <p class="text-center">به نظر من این گوشی رو با کمک سایت شما تونستم با بهترین قیمت بخرم</p>
+            
+                      </div>
+                  </div>
+              </div>
+              {% empty %}
+                    <h3 class="text-center">خالی است</h3>
+              {% endfor %}
+              <p class="text-end mt-1">بیشتر</p>
+              </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center">
+                        مرجوع کردن کالا
+                    </p>
+                    <p class="mx-2">
+                        مرجوع کردن کالا
+                    </p>
+                    <p class="mx-2">
+                        مرجوع کردن کالا
+                    </p>
+                    <p class="mx-2">
+                        مرجوع کردن کالا
+                    </p>
+                    <p class="mx-2">
+                        مرجوع کردن کالا
+                    </p>
+                    <p class="mx-2">
+                        مرجوع کردن کالا
+                    </p>
+                    <p class="mx-2">
+                        مرجوع کردن کالا
+                    </p>
+                </div>
+                <button class="btn btn-primary text-center mt-1">ورود به فرم مرجوعی</button>
+
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-center">
+                        اطلاعات کاربری
+                    </p>
+                    <p class="mx-2">
+                        نام
+                    </p>
+                    <p class="mx-2">
+                        نام خانوادگی
+                    </p>
+                    <p class="mx-2">
+                        شماره همراه
+                    </p>
+                    <p class="mx-2">
+                        شماره ثابت
+                    </p>
+                    <p class="mx-2">
+                        ادرس
+                    </p>
+                    <p class="mx-2">
+                        کدپستی
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

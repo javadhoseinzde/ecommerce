@@ -1,13 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from .models import MyUser
 # Create your views here.
 from . import forms
 from . import helper
 from django.contrib import messages
-
 
 def register_view(request):
 	form = forms.RegisterForm
@@ -18,7 +17,7 @@ def register_view(request):
 				user = MyUser.objects.get(mobile=mobile)
 				#send otp
 				otp = helper.get_random_otp()
-				# helper.send_otp(mobile, otp)
+				helper.send_otp(mobile, otp)
 				#save otp
 				print("OTP",otp)
 				user.otp = otp
@@ -32,7 +31,7 @@ def register_view(request):
 				user = form.save(commit=False)
 				otp = helper.get_random_otp()
 				# helper.send_otp(mobile, otp)
-				#save otp
+				# save otp
 				print("OTP",otp)
 				user.otp = otp
 				user.is_active = False
@@ -47,11 +46,11 @@ def verify(request):
 	try:
 		mobile = request.session.get('user_mobile')
 		user = MyUser.objects.get(mobile=mobile)
-
+		print("user otp")
+		print(user.otp)
 
 		if request.method == "POST":
 			otp = request.POST.get("otp")
-			
 			#check otp expiration
 			if not helper.check_otp_expiration(user.mobile):
 				messages.error(request, "OTP is expire pleasee try again")
@@ -63,13 +62,15 @@ def verify(request):
 				messages.error(request, "OTP is incorrect pleasee try again")
 				print("otp is incorrect")
 				return HttpResponseRedirect(reverse('verify'))
-			user.is_active = True
-			user.save()
-			login(request, user)
-			return HttpResponseRedirect(reverse('shop:index'))
+			else:
+				user.is_active = True	
+				user.save()
+				
+				login(request, user)
+				return HttpResponseRedirect(reverse('shop:index'))
 	except MyUser.DoesNotExist:
+		print("MYUSER DOESNOTEXIST")
 		messages.error(request, "Error accrded try again")
-
 		return HttpResponseRedirect(reverse('register_view'))
 	return render(request, 'user/verify.html', {'user':user})
 
@@ -82,6 +83,6 @@ def verify(request):
 # 			login(request, user)
 # 			return HttpResponseRedirect(reverse('dashboard'))
 # 	return render(request, 'mobile_login.html')
-def dashboard(request):
-	return render(request, "dashboard.html")
+# def dashboard(request):
+# 	return render(request, "dashboard.html")
 

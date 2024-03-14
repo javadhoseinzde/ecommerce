@@ -9,4 +9,3 @@ class MobileBackend(ModelBackend):
 			user = MyUser.objects.get(mobile=mobile)
 		except MyUser.DoesNotExist:
 			pass
-			

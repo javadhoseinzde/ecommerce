@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+{% comment %} <form method="post">
+    {% csrf_token %}
+    <input 
+<input type="submit" value="save">
+</form> {% endcomment %}
+<div class="container">
+    <p>دوست عزیزم هرگونه سوال و مشکلی براتون پیش اومده هم میتونید با پر کردن فرم زیر م هم تماس با شماره هایی که پایین قرار دادیم مشکل خودتون و بررسی کنید</p>
+    <p>شماره اول: 09105675936</p>
+    <p>شماره دوم: 09105675936</p>
+    <h3 class="text-center mb-5">ارتباط با ما</h3>
+    <form method="post">
+       {% csrf_token %}
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="name" id="name" placeholder="نام">
+                    </div>
+                </div>
+                <div class="col-6">
+
+                    <div class="mb-3">
+                    <input type="email" class="form-control" id="exampleFormControlInput1" name="email" id="email" placeholder="email@gmail.com">
+                    </div>
+                </div>
+                    <div class="mb-3">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text" id="text" placeholder="متن"></textarea>
+                </div>
+                    <div class="container-fluid text-center">
+                    <button type="submit" class="btn btn-primary">ثبت</button></div>
+
+    </form>
+</div>
+{% endblock %}

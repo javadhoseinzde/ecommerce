@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    {{form}}<br>
+    <button type="submit">submit</button>
+</form>
+<h3>{{total}}</h3>

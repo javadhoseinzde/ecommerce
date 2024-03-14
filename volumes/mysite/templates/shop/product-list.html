@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            
+            <div class="container mt-5">
+                <div class="row">
+                {% for product in object_list %}
+                    <div class="col-lg-3 col-md-6 col-sm-6 mb-3 mb-sm-0">
+                      <a href="{% url "shop:detail" product.id product.slug %}" style="text-decoration: none;">
+          
+                        <div id="top-card" class="card" >
+                            <img id="top-card-img" src="{{product.image.url}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <p>{{product.title}}</p>
+                              
+                              <p class="text-muted text-center">{{product.calculate_discount}}&nbsp;&nbsp;<span style="color: #c53151; text-decoration:line-through;">{{product.price}}</span></p>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

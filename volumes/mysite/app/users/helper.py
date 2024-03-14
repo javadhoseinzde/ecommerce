@@ -4,13 +4,13 @@ from random import randint
 from . import models
 import datetime
 def send_otp(mobile, otp):
-    mobile = [mobile,]
+    print(mobile)
     try:
         api = KavenegarAPI(Kavenegar_API)
         params = {
-            'sender': '100294060',#optional
-            'receptor': 'mobile',#multiple mobile number, split by comma
-            'message': 'Your OTP is',
+            'sender': '2000500666',#optional
+            'receptor': mobile, #multiple mobile number, split by comma
+            'message': 'سلام تضمینی کالا',
         } 
         response = api.sms_send(params)
         print(response)

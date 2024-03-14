@@ -1,12 +1,32 @@
-
+{% comment %} 
     {% for cat in category %}
       {% if cat.parent == None %}
         <li class="nav-item">
-          <a class="nav-link" href="#">{{cat.title}}</a>
+          <a class="nav-link" href="{% url "category:category-filter" cat.slug %}">{{cat.title}}</a>
           {% if cat.children %}
             {% include 'shop/partials/category_loop.html' %}
           {% endif %}
         </li>
       {% endif %}
+    {% endfor %} {% endcomment %}
+
+
+
+    {% for cat in category %}
+                <li class="nav-item dropdown">
+
+      {% if cat.parent == None %}
+              <a class="nav-link dropdown-toggle" href="{% url "category:category-filter" cat.slug %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{cat.title}}
+              </a>
+          {% if cat.children %}
+            {% include 'shop/partials/category_loop.html' %}
+          {% endif %}
+      {% endif %}
     {% endfor %}
+
+
+
+
+
 

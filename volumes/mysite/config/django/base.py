@@ -13,19 +13,26 @@ SECRET_KEY = 'django-insecure-1p6)b)#&x3b3=5k2ai6=f^zs00fpkxp$fcj#m!x3=5yxldp5on
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "app"]
 
 
 # CSRF_TRUSTED_ORIGINS = [
 #     'localhost',
 #     'http://127.0.0.1:8000'
 # ],
+
 CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:8000'   
+    'http://127.0.0.1:7001',
+       
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8000'
+]
+
+
+LOCAL_APPS = [
+    'app.antmedia_api.apps.AntmediaApiConfig',
 ]
 
 
@@ -39,6 +46,8 @@ LOCAL_APPS = [
     'app.comments.apps.CommentsConfig',
     'app.cart.apps.CartConfig',
     'app.order.apps.OrderConfig',
+    'app.static_pages.apps.StaticPagesConfig',
+    'app.utils.apps.UtilsConfig'
 
 
 
@@ -49,6 +58,8 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 INSTALLED_APPS = [
@@ -58,9 +69,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     *THIRD_PARTY_APPS,
     *LOCAL_APPS,
 ]
+
+CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+        'default':{
+                'toolbar': 'full',
+                'allowedContent': True,
+        }
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,7 +162,6 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -149,5 +172,18 @@ from config.settings.sessions import *  # noqa
 from config.settings.celery import *  # noqa
 from config.settings.kavenegar import *  # noqa
 from config.settings.jwt import *  # noqa
-AUTH_USER_MODEL = 'users.MyUser'
 
+AUTH_USER_MODEL = 'users.MyUser'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'app.users.mybackend.ModelBackend',
+]
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+MEDIA_URL = "media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+LOGOUT_REDIRECT_URL = "/"

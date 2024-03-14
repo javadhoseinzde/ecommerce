@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings    
+from django.conf.urls.static import static
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -29,14 +31,18 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("app.shop.urls")),
     path("", include("app.comments.urls")),
+    path("order/", include("app.order.urls")),
     path("user/", include("app.users.urls")),
     path("cart/", include("app.cart.urls")),
     path("api/", include("app.shop.api.urls")),
     path("api/", include("app.comments.api.urls")),
-    path("api/", include("app.users.api.urls")),
+    path("",include("app.category.urls")),
+    path("", include("app.utils.urls")),
+    path("", include("app.static_pages.urls")),
+
     # path('api-auth/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

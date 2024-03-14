@@ -9,6 +9,7 @@ class MyUserManager(BaseUserManager):
 		user.set_password(password)
 		user.save()
 		return user
+	
 	def create_superuser(self, mobile, password=None, **other_fields):
 
 		other_fields.setdefault("is_staff", True)
