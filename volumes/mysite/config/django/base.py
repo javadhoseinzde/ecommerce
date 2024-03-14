@@ -23,6 +23,7 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost", "app"]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:7001',
+    'http://hesss.drlink.ir'
        
 ]
 
