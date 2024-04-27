@@ -46,7 +46,6 @@ class AddToCart(View):
 		user = self.request.user
 		
 		# product = self.request.POST.get("product")
-		quantity = self.request.POST.get("quantity")
 		variant = self.request.POST.get("variant")
 		print("_________##################$$$$$$$$$$$$$$$$$$$$$$$$$")
 		print(variant)
@@ -54,15 +53,13 @@ class AddToCart(View):
 
 		if ShopCart.objects.filter(product=id, user=user,variant_id=variant).exists():
 			print("update")
-			try:
-				query = ShopCart.objects.filter(product=id, user=user).update(quantity=quantity)
-			except:
-				quan = ShopCart.objects.get(user=user,product=id)
-				count = quan.quantity + 1
-				query = ShopCart.objects.filter(product=id, user=user).update(quantity=count)
+
+			quan = ShopCart.objects.get(user=user,product=id, variant_id=variant)
+			count = quan.quantity + 1
+			query = ShopCart.objects.filter(product=id, user=user, variant_id=variant).update(quantity=count)
 			# update_cart(user=user,id=id, quantity=quantity)
 		else:
-			query = add_cart(product=id,quantity=quantity, user=user, variant=variant)
+			query = add_cart(product=id,quantity="1", user=user, variant=variant)
 		get_id = Product.objects.get(id=id)
 		if query:
 			messages.success(request,"به سبد خرید اضافه شد")
