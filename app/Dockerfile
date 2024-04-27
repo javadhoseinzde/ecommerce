@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster
+FROM python:3.8.0
 
 
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -11,7 +11,7 @@ WORKDIR /mysite
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-
+RUN pip install --upgrade jsonfield
 
 CMD python3 manage.py makemigrations --noinput && \
     python3 manage.py migrate --noinput && \

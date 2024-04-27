@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block content %}
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+   <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6 col-sm-12  mb-3 mb-sm-0">
+                <div class="card mb-3" style="background-color: ;">
+                    <div class="card-body">
+                        <!-- <img id="third-card-img" src="img/2.png" class="card-img-top"> -->
+                        <!-- <button class="">example</button> -->
+                        <div id="carouselExampleCaptions" class="carousel slide">
+                            <div class="carousel-indicators">
+                              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                            {% for i in object.image %}
+                              <div class="carousel-item active">
+                                <img id="img-2" src="{{i.image.url}}" class="d-block w-75 center conter.center" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+
+                                </div>
+                              </div>
+                              {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" style="background-color: black;" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" style="background-color: black;" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                          </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-3 col-sm-12 mb-3 mb-sm-0">
+                <div class="card" style="background-color: #ffffff; border:none;">
+                    <div class="card-body">
+                      
+                      <p>
+                        {{object.detail.title}}
+                      </p>
+                      {% for key,value in object.detail.data.items %}
+                      <p>
+                        {{key}} {{value}}
+                        
+                      </p>
+                      {% endfor %}
+                      <!-- <p>
+                        سایز 6.7 اینچ
+                      </p>
+                        <p>رنگ مشکی</p>
+                        <p>
+                         -->
+                          قیمت {{object.detail.price|intcomma}} تومان
+                        </p>
+                        {% if user.is_authenticated %}
+                        <form action="{% url 'cart:add' object.detail.id %}" method="post">
+                        {% csrf_token %}
+                          <label for="contnet">تعداد:</label><br>
+                           <input type="number" id="quantity" name="quantity" value="1" data-value="1" max="10"><br><br>
+                        <button type="submit" class="btn btn-success" style="background-color:#633EF8;">
+                          اضافه کردن به سبد
+                        </button>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'register_view' %}" target="_blank">
+                        <button type="submit" class="btn btn-success" style="background-color:#633EF8;">
+                          لاکین کنید
+                        </button></a>
+                        {% endif %}
+                    </div>
+                  </div>
+
+
+
+            </div>
+            <div class="col-md-3 col-sm-12 mb-3 mb-sm-0">
+              <div class="card mb-3" style="background-color: #ffffff;">
+                <div class="card-body text-center">
+                  <p>برچسب رضایت</p>
+                  <p>محدوده قیمت بازار برای این جنس</p>
+                  <p>تهران: 13,300,000 ریال </p>
+                  <p>میزان رضایت شما از قیمت</p>   
+                  <p>تعداد رای: 1200</p>
+                  <p>ایا از قیمت کالا رضایت دارید؟</p>    
+                  </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- information about product -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="text-center">
+                {{object.detail.title}}
+              </h3>
+              <p>
+              {{object.detail.description}}
+              </p>
+        
+              <img id="img-2" src="{{object.detail.image.url}}" class="d-block w-25 center conter.center" alt="...">
+
+
+              <div class="container">
+                <div class="row">
+                  
+                  <p class="d-inline-flex gap-1">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">مشخصات فنی</button>
+                  </p>
+                  <div class="row">
+                    <div class="col">
+                      <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="card card-body">
+                          <p>رم: 16</p><hr>
+                          <p>رم: 16</p><hr>
+                          <p>رم: 16</p><hr>
+                          <p>رم: 16</p><hr>
+                          <p>رم: 16</p><hr>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <div class="card card-body">
+                          <p>صفحه نمایشگر 6</p><hr>
+                          <p>صفحه نمایشگر 6</p><hr>
+                          <p>صفحه نمایشگر 6</p><hr>
+                          <p>صفحه نمایشگر 6</p><hr>
+                          <p>صفحه نمایشگر 6</p><hr>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              
+                </div>
+            
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <!-- commnet -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card p-5">
+
+
+        
+      <h1 class="text-center mt-4">ثبت نظرات و پیشنهادات</h1>
+  {% if user.is_authenticated %}
+    <form action="{% url 'comment:create-comment' object.detail.id %}" method="POST">
+      {% csrf_token %}
+        <div class="mb-3">
+          <label for="contnet" id="content" name="content" class="form-label">متن</label>
+          <input type="text" class="form-control" id="contnet" name="content">
+        </div>
+        <button type="submit" class="btn btn-primary">ثبت</button>
+      </form>
+      {% else %}
+      <a href="{% url 'register_view' %}" target="_blank" class="text-center">
+      <button type="submit" class="btn btn-primary mb-3 mt-3">برای ثبت نظر خود وارد حساب کاربری شوید</button></a>
+  
+      {% endif %}
+
+    <div class="row">
+      {% if object.comment == "کامنتی وجود ندارد" %}
+      <h3 class="text-center">کامنتی نیست</h3>
+      {% else %}
+      {% for i in object.comment %}
+    <div class="col-lg-4 col-sm-6 mb-3 mb-sm-0">
+      <div class="card mt-3">
+        
+          <!-- <img id="top-card-img" src="img/b.jpg" class="card-img-top" alt="..."> -->
+          <div class="card-body">
+              <p class="text-muted text-center">جواد حسین زاده</p>
+              <p class="text-center">{{i.content}}</p>
+
+          </div>
+      </div>
+  </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  
+
+
+    <!-- text about product -->
+
+
+
+    <!-- products -->
+    <div class="container mt-5">
+      <div class="row">
+      {% for product in object.product %}
+      
+          <div class="col-lg-3 col-md-6 col-sm-6 mb-3 mb-sm-0">
+            <a href="{% url "shop:detail" product.id %}" style="text-decoration: none;">
+
+              <div id="top-card" class="card" >
+                  <img id="top-card-img" src="{{product.image.url}}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <p>{{product.title|truncatewords:5}}</p>
+                    <script>
+                        function ToRial(str) {
+                        
+                        str = str.replace(/\,/g, '');
+                            var objRegex = new RegExp('(-?[0-9]+)([0-9]{3})');
+                          
+                            while (objRegex.test(str)) {
+                                str = str.replace(objRegex, '$1,$2');
+                            }
+                          
+                            return str;
+                        }
+                        //discount
+                      var int_price ={{product.price}} - {{product.calculate_discount}};
+                      var str_price = int_price.toString()
+                      var price = ToRial(str_price)
+
+                      //price
+                      var p = {{product.price}}
+                      var t = p.toString()
+                      console.log(t)
+                      var price1 = ToRial(t)
+            
+                  </script>
+                  {% if product.discount > 0 %}
+                      <p class="text-muted text-center"><script type="text/javascript">document.write(price)</script> تومان  <span style="color: #ff3e3e; text-decoration:line-through;"><script type="text/javascript">document.write(price1)</script></span></p>
+                      <p class="text-center mb-3">{{product.discount}} آفر جی پلاس</p>
+                  <!-- {{product.discount}} -->
+                  {% else %}
+                  <p class="text-muted text-center"><script type="text/javascript">document.write(price)</script> تومان </p>
+                  {% endif %}
+                  </div>
+              </div>
+              </a>
+          </div>
+      {% endfor %}
+      </div>
+  </div>
+
+    
+
+{% endblock %}
+

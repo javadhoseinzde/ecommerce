@@ -17,10 +17,15 @@ services:
     build: './nginx'
     container_name: 'nginx'
     restart: 'always'
+    ports:
+      - "7001:7001"
     volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezne:ro"
       - type: 'bind'
-        source: './volumes/media'
+        source: './volumes/mysite/media'
         target: '/mysite/media'
 
       - type: 'bind'
         source: './volumes/static'
+        target: '/mysite/static'

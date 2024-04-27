@@ -1,0 +1,50 @@
+#font-face {
+    font-family: tanha1;
+    src: url(Shabnam-Medium-FD.woff) format("woff");
+    font-weight: bold;
+}
+body {
+    font-family: tanha1;
+}
+
+@media screen and (min-width: 800px) {
+    #top-card{
+        width: 230px;
+        height: 330px;
+        border: none;
+        border-radius: 15px;
+    }
+  }
+#top-card-third{
+    width: 530px;
+    height: 300px;
+    border: none;
+}
+#third-card-img{
+    width: auto;
+    height: 200px;
+}
+#top-card-four{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+#card-five{
+    height: 70px;
+}
+#footer{
+    border: none;
+
+}
+#top-card-img{
+    padding: 10px;
+}
+.card {
+margin: 0 auto; /* Added */
+float: none; /* Added */
+margin-bottom: 10px; /* Added */
+}
+#img-2{
+    margin: auto;
+    width: 50%;
+}

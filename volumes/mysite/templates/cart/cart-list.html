@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- card -->
+
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown.active .dropdown-menu {
+            display: block;
+        }
+
+        .selected-number {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        #quantity1{
+          width: 50px;
+        }
+    </style>
+
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-12 col-xl-9">
+        {% for i in object_list.query %}
+        <div class="card shadow-0 border rounded-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                  <img src="{{ i.product.image.url }}"
+                    class="w-50" />
+                  <a href="#!">
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <h5>{{ i.product }}</h5>
+                <p class="text-truncate mb-md-0">
+                  تعداد : {{i.quantity}}
+                </p>
+                <p class="text-truncate mb-md-0">
+                  پست : پیشتاز
+              </p>
+              <div style="width:15px; height:15px; border-radius:4px; background-color:{{i.variant.color.code}}">
+              </p>
+              </div>
+              </div>
+              <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                <div class="d-flex flex-row align-items-center mb-1">
+
+                <script type="text/javascript">
+                      var a = {{i.variant.price}}
+                      var b = {{i.quantity}}
+                      var c = (a * b)
+
+                      {% comment %} var discount = {{i.product.calculate_discount}} * {{i.quantity}}
+                      var total_discount = ( {{i.product.price}} * {{i.quantity}} ) - discount {% endcomment %}
+                      var discount = {{i.variant.price}} * {{i.variant.discount}} / 100 * {{i.quantity}}
+                      var total_discount = {{i.variant.price}} * {{i.quantity}} - discount
+                </script>
+                  <h4 class="mb-1 me-1"> <script type="text/javascript">document.write(total_discount)</script></h4>
+                  <span class="text-danger"><s><script type="text/javascript">document.write(c)</script></s></span>
+                </div>
+                <h6 class="text-success">درباره کالا</h6>
+                <div class="d-flex">
+                  <form action="{% url 'cart:update' i.id %}" method="post">
+                    {% csrf_token %}
+                          <div class="d-flex flex-row align-items-center">
+                        <input type="number" class="dropdown-item mx-2" id="quantity1" name="quantity" value="{{i.quantity}}" data-value="1" max="10">
+                          <button class="btn btn-success btn-sm mx-2" type="submit">ثبت</button>
+
+                        
+                  </form>
+
+
+                  <form action="{% url 'cart:delete' i.id %}" method="post">
+                    {% csrf_token %}
+                  <button class="btn btn-danger btn-sm" type="submit">
+                    حذف
+                  </button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+              <h4 class="text-center">تکمیل خرید</h4>
+              <p class="text-center"> هزینه کل: {{object_list.total}}</p>
+              <div class="text-center">
+                <a href="{% url 'order:form' %}">
+                <button class="btn btn-primary btn-sm" type="button">تکمیل پرداخت</button>
+              </a>
+              </div>
+        </div>
+      </div>
+    </div>
+      
+
+
+    </div>
+  
+    
+  </div>
+
+    </div>
+
+</section>
+
+
+<!-- finish card -->
+
+{% endblock %}
+
+

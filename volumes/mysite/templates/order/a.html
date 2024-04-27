@@ -1,0 +1,27 @@
+<center>
+
+{{object_list}}
+
+<form action="{% url 'order:create_order' %}" method="post">
+{% csrf_token %}
+ <label for="content">نام: </label>
+  <input type="text" id="first_name" name="first_name"><br>
+
+ <label for="content">نام خانوادگی: </label>
+  <input type="text" id="last_name" name="last_name"><br>
+
+   <label for="contnet">ایمیل: </label>
+  <input type="email" id="email" name="email"><br>
+
+   <label for="contnet">ادرس: </label>
+  <input type="text" id="address" name="address"><br>
+
+   <label for="contnet">کدپستی: </label>
+  <input type="text" id="postal_code" name="postal_code"><br>
+
+   <label for="contnet">شهر: </label>
+  <input type="text" id="city" name="city"><br>
+  <button type="submit">submit</button>
+</form>
+
+</center>

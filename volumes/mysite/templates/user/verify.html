@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<html lang="ar" dir="rtl">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
+
+    <title>مرحبًا بالعالم!</title>
+    <link rel="stylesheet" href="{% static 'index/style.css' %}">
+
+  </head>
+  <body>
+    <form form method="post">
+        {% csrf_token %}
+        <div class="container">
+        <div class="col d-flex justify-content-center" style="margin-top:80px">
+        <div class="card text-center" style="width:300px; height:360px;border-radius:18px">
+            <p class="text-center fw-bold mt-4" style="color:#633EF8; font-size:25px;">Jplus</p>
+            <p class="text-start mx-4 fw-bold">کد تایید را وارد کنید</p>
+            <p class="text-start text-muted mx-4" style="font-size:14px;">کد تایید برای شماره ۰۹۱۰۵۶۷۵۹۳۶ پیامک شد</p>
+            <div class="d-flex justify-content-center">
+            <input type="text" class="form-control" placeholder="" style="width:210px;" name="otp" id="otp">
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn mt-3 fw-bold" style="width:170px; background-color:#633EF8; color:white; ">ورود</button>
+            </div>
+        </div>
+        </div>
+        </div>
+        </form>
+    </body>
+  </html>
