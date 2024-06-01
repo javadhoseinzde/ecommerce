@@ -9,12 +9,19 @@ body {
 
 @media screen and (min-width: 800px) {
     #top-card{
+        border: none;
+        border-radius: 15px;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    #top-card1{
         width: 230px;
         height: 330px;
         border: none;
         border-radius: 15px;
     }
   }
+
 #top-card-third{
     width: 530px;
     height: 300px;

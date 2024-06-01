@@ -68,3 +68,7 @@ vine==5.0.0
 wcwidth==0.2.6
 whitenoise==6.2.0
 gunicorn
+pymysql
+mysql-connector-python
+python-dotenv 
+mysqlclient

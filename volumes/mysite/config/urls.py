@@ -24,6 +24,12 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
+from django.contrib.sitemaps.views import sitemap
+from app.shop.sitemaps import ProductSiteMap
+
+sitemaps = {
+       'Product': ProductSiteMap,
+}
 
 
 
@@ -44,5 +50,9 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
+
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+                name='django.contrib.sitemaps.views.sitemap')
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

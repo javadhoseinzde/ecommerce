@@ -39,7 +39,8 @@ class Product(BaseModel):
     slug = models.SlugField(null=False, unique=True, verbose_name="آدرس")
     description = RichTextField(verbose_name="توضیحات")
     image=models.ImageField(upload_to='media/images/',null=False, verbose_name="تصویر")
-    price = models.DecimalField(max_digits=12, decimal_places=2,default=0, verbose_name="قیمت")
+#    price = models.DecimalField(max_digits=12,default=0, verbose_name="قیمت")
+    price = models.CharField(max_length=150, verbose_name="قیمت")
     Profit = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="سود")
     variant=models.CharField(max_length=10,choices=VARIANTS, default='None', verbose_name="گونه")
     tedad_bazdid = models.IntegerField(default=0, verbose_name="تعداد بازدید")
@@ -53,7 +54,7 @@ class Product(BaseModel):
         return self.title
 
     def calculate_discount(self):
-        return (self.price * Decimal(self.discount)) / 100    
+        return (int(self.price) * Decimal(self.discount)) / 100    
 
     class Meta:
         verbose_name = 'محصول'
@@ -64,7 +65,7 @@ class Product(BaseModel):
 
 
 class Color(BaseModel):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=250)
     code = models.CharField(max_length=10, blank=True,null=True)
     def __str__(self):
         return self.name
@@ -81,11 +82,12 @@ class Variants(BaseModel):
     title = models.CharField(max_length=100, blank=True,null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     color = models.ForeignKey(Color, on_delete=models.CASCADE,blank=True,null=True)
+    price = models.CharField(max_length=150, verbose_name="قیمت")
     # size = models.ForeignKey(Size, on_delete=models.CASCADE,blank=True,null=True)
     image_id = models.IntegerField(blank=True,null=True,default=0)
     quantity = models.IntegerField(default=1)
     discount = models.IntegerField(default=0)
-    price = models.DecimalField(max_digits=12, decimal_places=2,default=0)
+ #   price = models.DecimalField(max_digits=12,default=0)
  
     # order_amount = MoneyField(default="3000",max_digits=9, decimal_places=0, default_currency='IRR')
 

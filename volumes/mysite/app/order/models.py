@@ -1,7 +1,7 @@
 from django.db import models
 from app.common.models import BaseModel
 from app.users.models import MyUser
-from app.shop.models import Product
+from app.shop.models import Product, Variants
 # Create your models here.
 
 class Order(BaseModel):
@@ -25,7 +25,7 @@ class OrderItem(BaseModel):
     order = models.ForeignKey(Order,
                               related_name='items',
                               on_delete=models.CASCADE)
-    product = models.ForeignKey(Product,
+    variants = models.ForeignKey(Variants,
                                 related_name="order_items",
                                 on_delete=models.CASCADE)
     

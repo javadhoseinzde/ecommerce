@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
 from django.template.loader import render_to_string
@@ -6,8 +6,9 @@ from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
 from .models import Product, Images, Variants
 from .query import filter_product, get_product ,get_comment, get_slider, get_image
-
-
+from .payment import send_request, verify
+from app.cart.models import ShopCart
+from app.order.models import Order, OrderItem
 class IndexView(ListView):
     template_name = "shop/index.html"
 
@@ -116,3 +117,37 @@ class ProductList(ListView):
     
     def get_queryset(self):
         return Product.objects.all()
+
+
+def google_site_verf(request):
+	return render(request ,"shop/google80e6cc4dd6f77b7b.html")
+
+
+def submit_enamad(request):
+	return render(request, "shop/4569762.txt")
+
+
+def payment_request(request, id):
+	user = request.user.id
+	print(user)
+	query = OrderItem.objects.filter(order=id)
+	price = 0
+	for i in query:
+		print("for")
+		price += int(i.variants.price) * i.quantity
+		print(price)
+		print(i.variants.color)
+	print("price = ", price)
+	res = send_request(amount="50000", description="ندارد", id=id)
+	print(res)
+	authority = res['data']['authority']
+	print(authority)
+	return redirect(f"https://www.zarinpal.com/pg/StartPay/{authority}")
+
+
+def pay_verify(request, id, amount):
+	print(request.GET)
+	authority = request.GET.get('Authority')
+	status = request.GET.get('Status')
+#	query = Order.objects.filter(id=id).update(paid="True")
+	verify(amount="50000", authority=authority, Status=status, id=id)

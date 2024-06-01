@@ -39,7 +39,7 @@ class OrderView(ListView):
 		for q in query:
 			total +=  int(q.sums())
 		return total
-	
+
 
 class OrderFormView(View):
 	def post(self,request):
@@ -58,15 +58,13 @@ class OrderFormView(View):
 		#in bayad toye payment bashe
 		for i in create_cart:
 			print("in for")
-			OrderItem.objects.create(order=query, product_id=i.product.id, price=i.product.price, quantity=i.quantity)
+			OrderItem.objects.create(order=query, variants_id=i.variant.id, price=i.product.price, quantity=i.quantity)
 			i.delete()
 		if query:
 			messages.success(request,"به سبد خرید اضافه شد")
 		else:
 			messages.error(request, "در ثبت نظر شما مشکلی پیش آمده لطقا مججد امتحان کنید")
-			   
-		return redirect("order:pay", query.id)
-	
+		return redirect("shop:payment", query.id)
 
 def payment(request, id):
 	query = Order.objects.filter(id=id).update(paid=True)

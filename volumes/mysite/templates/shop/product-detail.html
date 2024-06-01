@@ -1,6 +1,6 @@
-{% extends "base.html" %}
-{% load humanize %}
-{% load static %}
+{% extends "base.html" %} {% load humanize %} {% load static %} {% block title %}
+	<title>{{product.title}} | تکی کالا</title>
+{% endblock %}
 {% block content %}
 
 <style>
@@ -10,6 +10,8 @@
   }
 }
 </style>
+
+
 {% if messages %}
  <ul class="messages">
   {% for message in messages %} 
@@ -72,7 +74,9 @@
                       </p>
                         </p>
                         {% endfor %}
-                                                        قیمت {{variant.price|intcomma}} تومان
+
+
+                         قیمت رنگ  {{variant.color.name}} {{variant.price|intcomma}} تومان
 
                                 <div class="row">
                                     {% if product.variant == 'Color' %}
@@ -80,16 +84,21 @@
                                             {% csrf_token %}
                                             <div id="appendHere">
                                                 <input type="hidden" name="size" id="size" value="{{ size_id }}">
-                                                      <div class="row" style="margin-top:11px;">
 
-                                                    
+
+
+
+                                                      <div class="row" style="margin-top:11px;">
                                                         {% for rs in colors %}
                                                         
                                                           <div class="col-2">
+
                                                         <li class="ui-variant" style="list-style-type: none">
-                                                            <label class="ui-variant ui-variant--color mb-3" style="background-color:{{ rs.color.code }}; color:white; border-radius:15px; width:25px; height:25px"> 
-                                                                <span class="ui-variant-shape" style="background-color:{{ rs.color.code }};"></span>
-                                                                    <input type="radio"{% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();" style=" margin-right:6px;">
+							      <label class="ui-variant ui-variant--color mb-3" style="background-color:{{ rs.color.code }}; color:white; border-radius:11px; width:40px; height:25px; display: flex; align-items: center; justify-content: center;">
+
+<!--                                                            <label class="ui-variant ui-variant--color mb-3" style="background-color:{{ rs.color.code }}; color:white; border-radius:11px; width:25px; height:25px"> -->
+                                                                <span class="ui-variant-shape" style=""></span>
+                                                                    <input type="radio"{% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();" style=" margin-right:0px;">
                                                                 <span class="ui-variant--check"></span>
                                                             </label>
                                                         </li>
@@ -97,6 +106,12 @@
                                                             </div>
                                                         {% endfor %}
                                                         </div>
+
+
+
+
+
+
                                                 </div>
                                         </form>
                                         </div>
@@ -294,7 +309,7 @@
 
     <!-- text about product -->
 
-
+	
 
     <!-- products -->
     <div class="container mt-5">

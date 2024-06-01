@@ -1,6 +1,20 @@
 version : "3.7"
 
 services:
+  db:
+    image: mysql:5.7
+    container_name: mysql-techy
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: techykalashop
+      MYSQL_DATABASE: techy_kala
+      MYSQL_USER: javad_shop
+      MYSQL_PASSWORD: DReUU8Y9BP@P*/mD
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - db:/var/lib/mysql
+      - ./db:/home
+
   app:
     build: './app'
     container_name: 'app'
@@ -11,14 +25,15 @@ services:
       - type: 'bind'
         source: './volumes/mysite'
         target: '/mysite'
-
+    depends_on:
+      - db
 
   nginx:
     build: './nginx'
     container_name: 'nginx'
     restart: 'always'
     ports:
-      - "7001:7001"
+      - "80:80"
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/etc/timezone:/etc/timezne:ro"
@@ -29,3 +44,10 @@ services:
       - type: 'bind'
         source: './volumes/static'
         target: '/mysite/static'
+
+volumes:
+  db:
+
+networks:
+  app-network:
+    driver: bridge

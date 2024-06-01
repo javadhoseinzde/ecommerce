@@ -116,7 +116,7 @@ class CartList(ListView):
 			for i in query:
 
 				total_dis =  i.product.calculate_discount() * i.quantity
-				total_disc = i.product.price * i.quantity - total_dis
+				total_disc = int(i.variant.price) * i.quantity - total_dis
 				total_discount += int(total_disc)
 			print(total_discount)
 			for i in query:

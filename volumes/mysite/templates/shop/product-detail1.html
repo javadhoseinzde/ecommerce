@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% block title %}
+        <title>{{product.title}} | تکی کالا</title>
+{% endblock %}
 {% block content %}
 {% if messages %}
 <ul class="messages">

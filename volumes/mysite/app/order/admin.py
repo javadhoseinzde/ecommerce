@@ -5,7 +5,7 @@ admin.site.register(OrderItem)
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
-    raw_id_fields = ['product']
+    raw_id_fields = ['variants']
 
 
 @admin.register(Order)
