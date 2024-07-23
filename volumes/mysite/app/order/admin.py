@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderItem
+from .models import Order, OrderItem, ShippingCost
 
 admin.site.register(OrderItem)
 
@@ -15,3 +15,5 @@ class OrderAdmin(admin.ModelAdmin):
                     'created_at', 'updated_at']
     list_filter = ['paid', 'created_at', 'updated_at']
     inlines = [OrderItemInline]
+
+admin.site.register(ShippingCost)

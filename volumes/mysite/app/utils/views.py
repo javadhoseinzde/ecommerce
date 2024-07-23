@@ -50,3 +50,16 @@ class BugBountyFormView(FormView):
     
 class Privacy(TemplateView):
     template_name = "utils/privacy.html"
+
+
+
+class PaymentMethod(TemplateView):
+    template_name = "utils/payment-method.html"
+
+
+class ReturnProduct(TemplateView):
+    template_name = "utils/return-product.html"
+
+
+class ShippingMethod(TemplateView):
+    template_name = "utils/shipping-method.html"

@@ -8,7 +8,7 @@ from django.contrib import messages
 from .models import Order, OrderItem
 from .query import create_order
 from app.users.models import MyUser
-
+from app.order.models import ShippingCost
 
 def order_view(request):
 	user = request.user
@@ -32,13 +32,32 @@ def order_view(request):
 class OrderView(ListView):
 	template_name = "order/order.html"
 
-	def get_queryset(self) -> QuerySet[Any]:
+#	def get_queryset(self) -> QuerySet[Any]:
+#		user = self.request.user
+#		query = ShopCart.objects.filter(user=user)
+#		shipping_query = ShippingCost.objects.all()
+#		total = 0
+#		for q in query:
+#			total +=  int(q.sums())
+#		return total
+
+	def get_queryset(self) -> QuerySet:
+		user = self.request.user
+		return ShopCart.objects.filter(user=user)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
 		user = self.request.user
 		query = ShopCart.objects.filter(user=user)
+		shipping_query = ShippingCost.objects.all()
 		total = 0
 		for q in query:
-			total +=  int(q.sums())
-		return total
+			total += int(q.sums())
+
+		context['query'] = query
+		context['shipping_query'] = shipping_query
+		context['total'] = total
+		return context
 
 
 class OrderFormView(View):
@@ -52,7 +71,8 @@ class OrderFormView(View):
 		address = self.request.POST.get("address")
 		postal_code = self.request.POST.get("postal_code")
 		city = self.request.POST.get("city")
-		query = create_order(first_name, last_name, email, address, postal_code, city,user)
+		shipping = self.request.POST.get("shipping")
+		query = create_order(first_name, last_name, email, address, postal_code, city,user, shipping=shipping)
 		print(f"form id {query.id}")
 		create_cart = ShopCart.objects.filter(user=user)
 		#in bayad toye payment bashe

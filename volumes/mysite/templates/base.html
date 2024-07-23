@@ -17,6 +17,7 @@
     <meta name="description" content="تکی کالا با هدف فروش انواع کالای دیجیتال موبایل لپ تاپ پرینتر و... ساخته شدهم شما میتوانید هرآنچه که نیاز دارید با امکان تعویض و مرجوعی راحت و با ضمانت از تکی کالا خرید کنید|برای خرید کلیک کنید." />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
+<meta name="google-site-verification" content="gicbIVXQdgemOz6GbNiprZxO5A57wziuV3BvI_E2hAQ" />
 
 {% block title %}
     <title></title>
@@ -122,9 +123,9 @@
                         <p>
                         تماس با ما
                         </p></a>
-                        <p>
+<!--                        <p>
                         سوالی دارید؟
-                        </p>
+                        </p> -->
                     </div>
                   </div>
             </div>
@@ -142,9 +143,10 @@
                         <p>
                         حریم خصوصی
                         </p></a>
+			<a href="{% url 'product-return' %}" style="text-decoration: none; color: black;">
                         <p>
                         رویه های بازگرداندن
-                        </p>
+                        </p></a>
                     </div>
                   </div>
             </div>
@@ -152,15 +154,19 @@
                 <div class="card mt-4 text-center" id="footer" >
                     <div class="card-body">
                         <h5>
-                            راهنمای خرید از جی پلاس
+                            راهنمای خرید از تِکی کالا
                         </h5>
                         <p>
                         نحوه ثبت سفارش
-                        </p>                  
+                        </p>
+			<a href="{% url 'shipping-product' %}" style="text-decoration: none; color: black;">                  
                         <p>
                         رویه ارسال
-                        </p>
-
+                        </p></a>
+			<a href="{% url 'payment-method' %}" style="text-decoration: none; color: black;">
+			<p>
+				روش پرداخت
+			</p></a>
                     </div>
                   </div>
             </div>

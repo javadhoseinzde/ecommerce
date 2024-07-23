@@ -20,9 +20,9 @@
                     {% for product in object_list.order_item %}
                         <div class="col-lg-3 col-md-6 col-12">
                             <div id="top-card" class="card" >
-                                <img id="top-card-img" src="{{ product.product.image.url }}" class="card-img-top" alt="...">
+                                <img id="top-card-img" src="{{ product.variants.product.image.url }}" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <p class="text-muted text-center">قیمت 70000</p>
+                                    <p class="text-muted text-center">قیمت {{product.variants.price}} ریال</p>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
 <div class="container mt-3">
     <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card p-3">
             <div class="card-body">
                 <p class="text-center">
                     نقد و نظرات
@@ -56,8 +56,8 @@
                     
                       <!-- <img id="top-card-img" src="img/b.jpg" class="card-img-top" alt="..."> -->
                       <div class="card-body">
-                          <p class="text-muted text-center">جواد حسین زاده</p>
-                          <p class="text-center">به نظر من این گوشی رو با کمک سایت شما تونستم با بهترین قیمت بخرم</p>
+                          <p class="text-muted text-center">نظر شما</p>
+                          <p class="text-center">{{i.content}}</p>
             
                       </div>
                   </div>
@@ -73,8 +73,8 @@
 
 <div class="container mt-3">
     <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <div class="card">
+        <div class="col-md-12 col-sm-12">
+            <div class="card text-center">
                 <div class="card-body">
                     <p class="text-center">
                         مرجوع کردن کالا
@@ -98,10 +98,12 @@
                         مرجوع کردن کالا
                     </p>
                 </div>
+		<a href="{% url 'return-product' %}">
                 <button class="btn btn-primary text-center mt-1">ورود به فرم مرجوعی</button>
-
+		</a>
             </div>
         </div>
+<!--
         <div class="col-md-6 col-sm-12">
             <div class="card">
                 <div class="card-body">
@@ -128,7 +130,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 

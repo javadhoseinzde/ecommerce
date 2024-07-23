@@ -47,7 +47,8 @@ class Product(BaseModel):
     pishnahad = models.BooleanField(default=True, verbose_name="پیشنهاد")
     tedad_frosh = models.IntegerField(default=0, verbose_name="تعداد فروش")
     discount = models.IntegerField(default=0, verbose_name="تخفیف")
-    status=models.CharField(max_length=10,choices=STATUS, verbose_name="وضعیت")
+    status = models.CharField(max_length=10,choices=STATUS, verbose_name="وضعیت")
+    available = models.CharField(max_length=10,choices=STATUS, verbose_name="موجودی")
     data = JSONField(null=True, verbose_name="دیتا")
 
     def __str__(self) -> str:

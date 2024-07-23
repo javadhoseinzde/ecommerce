@@ -1,4 +1,18 @@
 {% extends "base.html" %} {% load humanize %} {% load static %} {% block title %}
+
+<meta name="product_id" content="{{product.id}}">
+<meta name="product_name" content="{{product.title}}">
+<meta property="og:image" content="{{product.image.url}}">
+<meta name="product_price" content="{{product.price}}">
+<meta name="product_old_price" content="">
+{% if product.unavailable == "False" %}
+<meta name="availability" content="instock">
+{% else %}
+<meta name="availability" content="outofstock">
+{% endif %}
+<meta name="guarantee" content="True">
+ز
+
 	<title>{{product.title}} | تکی کالا</title>
 {% endblock %}
 {% block content %}
@@ -10,6 +24,8 @@
   }
 }
 </style>
+
+
 
 
 {% if messages %}

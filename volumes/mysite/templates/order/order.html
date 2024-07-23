@@ -4,6 +4,7 @@
 <br><br>
 <div class="container">
   <div class="row">
+	{{object_list.total}}
       <form action="{% url 'order:create_order' %}" method="post">
       {% csrf_token %}
         <div class="mb-3">
@@ -30,10 +31,13 @@
           <label for="exampleInputEmail1" class="form-label">شهر</label>
           <input type="text" class="form-control" id="city" name="city" aria-describedby="emailHelp">
         </div>       
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
+
+                    <select class="form-select mt-2" aria-label="Default select example" name="shipping" id="shipping">
+		        {% for i in shipping_query %}
+                            <option value="{{i.id}}">{{i.name}} | {{i.price}} ریال</option>
+        		{% endfor %}
+                    </select>
+
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
   </div>

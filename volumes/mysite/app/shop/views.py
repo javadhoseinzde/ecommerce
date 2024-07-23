@@ -51,8 +51,13 @@ def product_detail(request,id,slug):
 
 
     product = Product.objects.get(pk=id)
-    #q = product.data
-    
+    q = product.data
+    print(q)
+    first_four_items = list(q.items())[:4]
+    print("dict___________________")
+    for key, value in first_four_items:
+        print(f"{key}: {value}")
+    print("dict___________________")
     print("salam")
 
 
@@ -66,6 +71,7 @@ def product_detail(request,id,slug):
 
     context = {'product': product,
                'images': images, 'comments': comments,
+               'first_four_items':first_four_items
                }
     print("salam")
 
@@ -88,7 +94,8 @@ def product_detail(request,id,slug):
             variant =Variants.objects.get(id=variants[0].id)
         context.update({'colors': colors,
                         'variant': variant,'query': query,
-                        'comments':comments
+                        'comments':comments,
+                        'first_four_items':first_four_items
                         })
     return render(request,'shop/product-detail.html',context)
 
@@ -119,6 +126,20 @@ class ProductList(ListView):
         return Product.objects.all()
 
 
+
+class ProductDiscount(ListView):
+    template_name = "shop/product-list.html"
+
+    def get_queryset(self):
+        return Product.objects.filter(discount=1)
+
+
+class ProductUnavailable(ListView):
+    template_name = "shop/product-list.html"
+
+    def get_queryset(self):
+        return Product.objects.filter(available=False)
+
 def google_site_verf(request):
 	return render(request ,"shop/google80e6cc4dd6f77b7b.html")
 
@@ -131,14 +152,19 @@ def payment_request(request, id):
 	user = request.user.id
 	print(user)
 	query = OrderItem.objects.filter(order=id)
+	shipping_query = Order.objects.get(id=id)
 	price = 0
+	print(shipping_query.shipping.price)
+	print(type(shipping_query.shipping.price))
+	price += int(shipping_query.shipping.price)
+	print(price)
 	for i in query:
 		print("for")
 		price += int(i.variants.price) * i.quantity
 		print(price)
 		print(i.variants.color)
 	print("price = ", price)
-	res = send_request(amount="50000", description="ندارد", id=id)
+	res = send_request(amount=price, description="ندارد", id=id)
 	print(res)
 	authority = res['data']['authority']
 	print(authority)
@@ -150,4 +176,4 @@ def pay_verify(request, id, amount):
 	authority = request.GET.get('Authority')
 	status = request.GET.get('Status')
 #	query = Order.objects.filter(id=id).update(paid="True")
-	verify(amount="50000", authority=authority, Status=status, id=id)
+	verify(amount=amount, authority=authority, Status=status, id=id)

@@ -4,6 +4,14 @@ from app.users.models import MyUser
 from app.shop.models import Product, Variants
 # Create your models here.
 
+class ShippingCost(BaseModel):
+    name = models.CharField(max_length=256)
+    price = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
 class Order(BaseModel):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -13,6 +21,7 @@ class Order(BaseModel):
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
     paid = models.BooleanField(default=False)
+    shipping = models.ForeignKey(ShippingCost, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('-created_at',)
@@ -37,6 +46,5 @@ class OrderItem(BaseModel):
     
     def get_cost(self):
         return self.price * self.quantity
-    
 
-    
+
